@@ -1,14 +1,14 @@
-
 # VagDev
 
 A simple project to ease the setting up of development VMs for the
 CMS conditions (and possible other environments) using vagrant. 
 
-   git clone https://github.com/apfeiffer1/vagDev.git 
+   git clone https://github.com/CBforeva/vagDev.git 
    cd slc6
    vagrant up
    vagrant ssh
 
 should be all you need to set up a devbox and use it. 
 
-Enjoy ! :)
+Forked from apfeiffer1/vagDev
+(Added several custom settings, etc...)
