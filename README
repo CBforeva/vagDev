@@ -12,6 +12,7 @@ CMS conditions (and possible other environments) using vagrant.
 should be all you need to set up a devbox and use it. 
 
 Adding several custom settings and additions to the base (from apfeiffer1).
+(Download the Oracle 11g XE RPM into modules/oracle/)
 
 
 Credits
