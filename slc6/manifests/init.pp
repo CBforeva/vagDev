@@ -12,5 +12,4 @@ file { '/etc/motd':
 }
 
 include oracle::server
-
-#include oracle::xe
+include oracle::xe

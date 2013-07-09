@@ -1,9 +1,15 @@
 class oracle::server {
+
+  Exec {
+    logoutput => true,
+  }
+
   exec {
     "/usr/bin/yum -y update":
-     alias => "yumUpdate",
-     timeout => 5000;
+      alias => "yumUpdate",
+      timeout => 5000;
   }
+
 
   package {
     "ntp":
@@ -25,6 +31,8 @@ class oracle::server {
     "unixODBC":
       ensure => installed;
     "git":
+      ensure => installed;
+    "bc":
       ensure => installed;
   }
 
@@ -81,7 +89,35 @@ class oracle::xe {
       ensure => directory;
   }
 
+  Exec {
+    logoutput => true,
+  }
+
   exec {
+    #"swapOff":
+    #  alias => "swapOff",
+    #  command => "/sbin/swapoff -v /dev/VolGroup/lv_swap",
+    #  user => root;
+
+    "createSwap":
+      alias => "createSwap",
+      command => "/bin/dd if=/dev/zero bs=1M count=2048 of=/mnt/swapfile",
+      #require => Exec["swapOff"],
+      user => root;
+
+    "swapOn":
+      alias => "swapOn",
+      command => "/sbin/mkswap /mnt/swapfile",
+      require => Exec["createSwap"],
+      user => root;
+
+    "extraSwap":
+      alias => "extraSwap",
+      command => "/sbin/swapon -v /mnt/swapfile",
+      require => Exec["swapOn"],
+      #[Exec["swapOff"],Exec["increaseSwap"],Exec["swapOn"]],
+      user => root;
+
     "unzip xe":
       alias => "unzip xe",
       command => "/usr/bin/unzip -o /tmp/oracle-xe-11.2.0-1.0.x86_64.rpm.zip",
@@ -114,7 +150,7 @@ class oracle::xe {
     "oracle-xe":
       provider => "rpm",
       ensure => latest,
-      require => Exec["unzip xe"],
+      require => [Exec[extraSwap],Exec["unzip xe"],Package["libaio"]],
       source => "/tmp/Disk1/oracle-xe-11.2.0-1.0.x86_64.rpm";
   }
 }
