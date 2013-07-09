@@ -1,4 +1,5 @@
-# VagDev
+VagDev
+------
 
 A simple project to ease the setting up of development VMs for the
 CMS conditions (and possible other environments) using vagrant. 
@@ -10,5 +11,12 @@ CMS conditions (and possible other environments) using vagrant.
 
 should be all you need to set up a devbox and use it. 
 
-Forked from apfeiffer1/vagDev
-(Added several custom settings, etc...)
+Adding several custom settings and additions to the base (from apfeiffer1).
+(Download the Oracle 11g XE RPM into modules/oracle/)
+
+
+Credits
+-------
+* Using Oracle module from Codescape (https://github.com/codescape/vagrant-oracle-xe) also the base provided by Andrej Koelwijn's blog.
+* Forked from apfeiffer1/vagDev (https://github.com/apfeiffer1/vagDev)
+
